@@ -3,10 +3,12 @@ import { Route, Routes } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
-import Logout from './components/logout';
+import Logout from './components/Logout';
 import RegisterForm from './components/RegisterForm';
 import Profile from './components/Profile';
 import Dashboard from './components/Dashboard';
+import NewPost from './components/NewPost';
+import ProtectedRoute from './components/common/ProtectedRoute';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -14,11 +16,40 @@ function App() {
     <>
       <NavBar />
       <Routes>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/newpost"
+          element={
+            <ProtectedRoute>
+              <NewPost />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/logout"
+          element={
+            <ProtectedRoute>
+              <Logout />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/logout" element={<Logout />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </>

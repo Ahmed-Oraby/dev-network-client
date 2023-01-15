@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import Joi from 'joi';
 import InputControl from './common/InputControl';
-import { post } from '../services/httpService';
-import { setAuthToken, getTokenData } from '../services/authService';
+import { getTokenData, register } from '../services/authService';
 import Loader from './common/Loader';
 import Button from './common/Button';
 
@@ -53,11 +52,9 @@ export default function RegisterForm() {
     setIsLoading(true);
 
     try {
-      const { token } = await post('/users/register', { ...formData });
-      setAuthToken(token);
-      window.location.replace('/dashboard');
+      await register({ ...formData });
     } catch (error) {
-      errorObj.email = 'An error occured, please try again.';
+      errorObj.email = error.message || 'An error occured, please try again.';
     }
     setIsLoading(false);
     setError(errorObj);
@@ -106,7 +103,7 @@ export default function RegisterForm() {
           <Loader />
         </div>
       )}
-      <Button type="submit" text="Register" />
+      <Button type="submit" text="Register" variant="primary" />
       <p className="mt-3 text-sm text-gray-700">
         Already have an account?{' '}
         <Link className="pl-1 text-blue-700 underline" to="/login">

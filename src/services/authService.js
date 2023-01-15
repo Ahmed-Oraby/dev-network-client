@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import { authToken } from '../../config.json';
-import * as http from './httpService';
+import { httpPost } from './httpService';
 
 export function getTokenData() {
   const token = localStorage.getItem(authToken);
@@ -20,9 +20,20 @@ export function removeToken() {
   localStorage.removeItem(authToken);
 }
 
-export async function login(loginData) {
-  const { token } = await http.post('/users/login', loginData);
+export async function register(userData) {
+  const { token } = await httpPost('/users/register', userData);
   setAuthToken(token);
+  window.location.replace('/dashboard');
+}
+
+export async function login(loginData) {
+  const { token } = await httpPost('/users/login', loginData);
+  setAuthToken(token);
+}
+
+export function logout() {
+  removeToken();
+  window.location.replace('/login');
 }
 
 // export { getAuthToken, setAuthToken };

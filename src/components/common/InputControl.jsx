@@ -1,6 +1,14 @@
-export default function InputControl(props) {
-  const { name, text, value, error, placeholder, disabled, onChange } = props;
+import Alert from './Alert';
 
+export default function InputControl({
+  name,
+  text,
+  value,
+  error,
+  placeholder,
+  disabled,
+  onChange,
+}) {
   return (
     <>
       <div className="mb-3 flex w-full flex-col justify-between">
@@ -21,11 +29,7 @@ export default function InputControl(props) {
           onChange={onChange}
         />
       </div>
-      {error && (
-        <div className="mb-3 w-full rounded-lg bg-red-100 p-5 text-center text-base text-red-700">
-          {error}
-        </div>
-      )}
+      {error && <Alert text={error} variant="danger" />}
     </>
   );
 }

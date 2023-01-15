@@ -1,52 +1,113 @@
 import React, { useEffect, useState } from 'react';
-import { getTokenData } from '../services/authService';
+// import { Link, useNavigate } from 'react-router-dom';
+import { getTokenData, logout } from '../services/authService';
 import { getPosts } from '../services/postService';
-import Post from './common/Post';
+import Alert from './common/Alert';
+import Button from './common/Button';
+import Post from './Post';
 import PostSkeleton from './common/PostSkeleton';
 
 export default function Dashboard() {
-  // const [pageSize, setPageSize] = useState(10);
   const [posts, setPosts] = useState(Array(10).fill(null));
-  const [pageNum, setPageNum] = useState(1);
-  console.log(posts);
-  useEffect(() => {
-    fetchPosts();
-  }, [pageNum]);
+  const [isEmpty, setIsEmpty] = useState(false);
 
-  // const tokenData = getTokenData();
+  useEffect(() => {
+    const { exp } = getTokenData();
+    const expDate = new Date(exp * 1000).getTime();
+    const dateNow = new Date().getTime();
+    if (expDate <= dateNow) {
+      logout();
+    }
+
+    fetchPosts();
+  }, []);
+
   const pageSize = 5;
+  let pageNum = 1;
 
   const fetchPosts = async () => {
     const newPosts = await getPosts(pageSize, pageNum);
-    setPosts(newPosts);
     console.log(newPosts);
+
+    if (newPosts.length === 0) {
+      setIsEmpty(true);
+      if (posts[0] === null) setPosts([]);
+      return;
+    }
+    const allPosts =
+      posts[0] === null ? [...newPosts] : [...posts, ...newPosts];
+    setPosts(allPosts);
+    setIsEmpty(false);
+  };
+
+  const handlePostUpdate = (newPost) => {
+    const newPosts = [...posts];
+    const postIndex = newPosts.findIndex((item) => item._id === newPost._id);
+    // newPosts.splice(postIndex, 1, newPost);
+    newPosts[postIndex] = newPost;
+    setPosts(newPosts);
+  };
+
+  const handlePostDelete = (postId) => {
+    const newPosts = [...posts];
+    const postIndex = newPosts.findIndex((item) => item._id === postId);
+    newPosts.splice(postIndex, 1);
+    setPosts(newPosts);
   };
 
   const handleLoadMore = async () => {
-    setPageNum(pageNum + 1);
-    // console.log(posts);
+    if (posts.length === 0) {
+      pageNum = 1;
+      // setPageNum(1);
+    } else {
+      pageNum += 1;
+      // setPageNum(pageNum + 1);
+    }
+    fetchPosts();
   };
 
   return (
     <>
-      <h2 className="mt-6 text-center text-4xl text-gray-700">Latest Posts</h2>
-      <div className="mt-5 flex flex-col items-center justify-center bg-gray-50 p-10 ">
-        {posts.map((item) =>
-          item ? (
-            <Post
-              key={item._id}
-              name={item.user.name}
-              avatar={item.user.avatar}
-              text={item.text}
-              date={item.date}
-              likeCount={item.likes.length}
-            />
-          ) : (
-            <PostSkeleton />
-          )
-        )}
+      <div className="flex flex-col items-center justify-between">
+        <h2 className="mt-6 text-center text-4xl text-gray-700">
+          Latest Posts
+        </h2>
+        <Button
+          as="link"
+          text="Create New Post"
+          variant="secondary"
+          to="/newpost"
+        />
+      </div>
 
-        {/* <button onClick={handleLoadMore}>Load more</button> */}
+      <div className="mt-5 flex min-w-fit flex-col items-center justify-center bg-gray-50">
+        {posts.length !== 0 &&
+          posts.map((post, index) =>
+            post ? (
+              <Post
+                key={post._id}
+                post={post}
+                onPostUpdate={handlePostUpdate}
+                onPostDelete={handlePostDelete}
+              />
+            ) : (
+              <PostSkeleton key={index} />
+            )
+          )}
+      </div>
+
+      <div className="mb-10 flex flex-col items-center justify-between">
+        {isEmpty && posts[0] && (
+          <Alert text="There are no more posts." variant="primary" />
+        )}
+        {!isEmpty && (
+          <Button
+            type="button"
+            text="Load More"
+            variant="secondary"
+            onClick={handleLoadMore}
+          />
+        )}
       </div>
     </>
   );

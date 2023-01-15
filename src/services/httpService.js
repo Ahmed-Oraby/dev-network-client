@@ -1,12 +1,15 @@
 import { apiUrl, authToken } from '../../config.json';
 
-export async function post(endPoint, body) {
+const token = localStorage.getItem(authToken);
+
+export async function httpPost(endPoint, body, method = 'POST') {
   try {
     const response = await fetch(apiUrl + endPoint, {
-      method: 'POST',
+      method: method,
       headers: {
         // Accept: 'application/json',
         'Content-Type': 'application/json',
+        'x-auth-token': token,
       },
       body: JSON.stringify(body),
     });
@@ -21,10 +24,8 @@ export async function post(endPoint, body) {
   }
 }
 
-export async function get(endPoint) {
+export async function httpGet(endPoint) {
   try {
-    const token = localStorage.getItem(authToken);
-
     const response = await fetch(apiUrl + endPoint, {
       headers: {
         'x-auth-token': token,
@@ -34,6 +35,23 @@ export async function get(endPoint) {
     if (response.ok) {
       return responseJson;
     } else {
+      return Promise.reject(responseJson);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function httpDelete(endPoint) {
+  try {
+    const response = await fetch(apiUrl + endPoint, {
+      method: 'DELETE',
+      headers: {
+        'x-auth-token': token,
+      },
+    });
+    const responseJson = await response.json();
+    if (!response.ok) {
       return Promise.reject(responseJson);
     }
   } catch (error) {

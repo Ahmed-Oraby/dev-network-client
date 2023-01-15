@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import Joi from 'joi';
 import InputControl from './common/InputControl';
-import { post } from '../services/httpService';
-import { setAuthToken, getTokenData } from '../services/authService';
+import { getTokenData, login } from '../services/authService';
 import Loader from './common/Loader';
 import Button from './common/Button';
 
@@ -18,6 +17,7 @@ export default function LoginForm() {
   });
   const [isLoading, setIsLoading] = useState(false);
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const location = useLocation();
 
   const errorObj = {
     email: null,
@@ -50,11 +50,11 @@ export default function LoginForm() {
     setIsLoading(true);
 
     try {
-      const { token } = await post('/users/login', { ...formData });
-      setAuthToken(token);
-      window.location.replace('/dashboard');
+      await login({ ...formData });
+      const origin = location.state?.from || '/dashboard';
+      window.location.replace(origin);
     } catch (error) {
-      errorObj.email = 'An error occured, please try again.';
+      errorObj.email = error.message || 'An error occured, please try again.';
     }
     setIsLoading(false);
     setError(errorObj);
@@ -94,7 +94,7 @@ export default function LoginForm() {
           <Loader />
         </div>
       )}
-      <Button type="submit" text="Login" />
+      <Button type="submit" text="Login" variant="primary" />
       <p className="mt-3 text-sm text-gray-700">
         Don't have an account?{' '}
         <Link className="pl-1 text-blue-700 underline" to="/register">
