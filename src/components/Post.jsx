@@ -7,15 +7,15 @@ import PostComments from './PostComments';
 import { getTokenData } from '../services/authService';
 import { deletePost, editPost } from '../services/postService';
 import formatDate from '../utils/formatDate';
-import EditPost from './EditPost';
-import DeletePost from './DeletePost';
+import EditModal from './EditModal';
+import DeleteModal from './DeleteModal';
 
 export default function Post({ post, onPostUpdate, onPostDelete }) {
   const [showComments, setShowComments] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
-  const { _id: postId, user, text, date, likes, comments } = post;
+  const { _id: postId, user, text, date, likes, comments, isEdited } = post;
   const token = getTokenData();
 
   const handlePostDelete = async () => {
@@ -39,7 +39,7 @@ export default function Post({ post, onPostUpdate, onPostDelete }) {
   };
 
   return (
-    <div className="m-5 w-full rounded-lg border border-gray-400 bg-white py-6 px-8 sm:w-4/5 md:w-3/5">
+    <div className="m-5 w-full rounded-lg border border-gray-400 bg-white py-6 px-4 sm:w-4/5 md:w-3/4 md:px-8 lg:w-3/5 xl:w-1/2">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <img
@@ -68,6 +68,7 @@ export default function Post({ post, onPostUpdate, onPostDelete }) {
         )}
       </div>
 
+      {isEdited && <p className="mt-1 ml-1 text-gray-500">Edited</p>}
       <p className="mt-2 ml-2 p-2 text-xl font-medium text-gray-900">{text}</p>
       <p className="ml-2 mt-2 border-b border-gray-200 py-2 text-right text-base text-gray-600">
         {formatDate(date)}
@@ -96,7 +97,7 @@ export default function Post({ post, onPostUpdate, onPostDelete }) {
       )}
 
       {showEdit && (
-        <EditPost
+        <EditModal
           text={text}
           onSaveEdit={handlePostEdit}
           onCloseEdit={() => setShowEdit(false)}
@@ -104,7 +105,7 @@ export default function Post({ post, onPostUpdate, onPostDelete }) {
       )}
 
       {showDelete && (
-        <DeletePost
+        <DeleteModal
           onPostDelete={handlePostDelete}
           onCloseDelete={() => setShowDelete(false)}
         />

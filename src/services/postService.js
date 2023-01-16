@@ -27,3 +27,11 @@ export function deletePost(postId) {
 export function editPost(postId, text) {
   return httpPost(`/posts/${postId}`, { text }, 'PUT');
 }
+
+export function deleteComment(postId, commentId) {
+  return httpDelete(`/posts/comments/${postId}/${commentId}`);
+}
+
+export function editComment(postId, commentId, text) {
+  return httpPost(`/posts/comments/${postId}/${commentId}`, { text }, 'PUT');
+}

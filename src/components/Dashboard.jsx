@@ -68,7 +68,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-between">
+      <div className="flex flex-col items-center justify-between p-5">
         <h2 className="mt-6 text-center text-4xl text-gray-700">
           Latest Posts
         </h2>
@@ -80,7 +80,7 @@ export default function Dashboard() {
         />
       </div>
 
-      <div className="mt-5 flex min-w-fit flex-col items-center justify-center bg-gray-50">
+      <div className="mt-5 flex min-w-fit flex-col items-center justify-center bg-gray-50 p-5">
         {posts.length !== 0 &&
           posts.map((post, index) =>
             post ? (
@@ -96,7 +96,7 @@ export default function Dashboard() {
           )}
       </div>
 
-      <div className="mb-10 flex flex-col items-center justify-between">
+      <div className="mb-10 flex flex-col items-center justify-between p-5">
         {isEmpty && posts[0] && (
           <Alert text="There are no more posts." variant="primary" />
         )}

@@ -1,51 +1,66 @@
 import React, { useState } from 'react';
-import InputControl from './common/InputControl';
-import sendIcon from '../assets/icons/send.svg';
-import Loader from './common/Loader';
-import { addComment } from '../services/postService';
+// import InputControl from './common/InputControl';
+// import sendIcon from '../assets/icons/send.svg';
+// import Loader from './common/Loader';
+// import {
+//   addComment,
+//   deleteComment,
+//   editComment,
+// } from '../services/postService';
 import Comment from './Comment';
-import Alert from './common/Alert';
-import { getTokenData } from '../services/authService';
+import AddComment from './AddComment';
+// import { getTokenData } from '../services/authService';
 
 export default function PostComments({ postId, comments, onPostUpdate }) {
-  const [comment, setComment] = useState('');
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  // const [comment, setComment] = useState('');
+  // const [error, setError] = useState('');
+  // const [isLoading, setIsLoading] = useState(false);
 
-  const handleAddComment = async () => {
-    if (!comment) return;
+  // const handleAddComment = async () => {
+  //   if (!comment) return;
 
-    setIsLoading(true);
-    try {
-      const newPost = await addComment(postId, comment);
-      setError('');
-      setComment('');
-      setIsLoading(false);
-      onPostUpdate(newPost);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+  //   setIsLoading(true);
+  //   try {
+  //     const newPost = await addComment(postId, comment);
+  //     setError('');
+  //     setComment('');
+  //     setIsLoading(false);
+  //     onPostUpdate(newPost);
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  // };
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      handleAddComment();
-    }
-  };
+  // const handleKeyDown = (e) => {
+  //   if (e.key === 'Enter') {
+  //     handleAddComment();
+  //   }
+  // };
 
-  const token = getTokenData();
+  // const handleCommentDelete = async (commentId) => {
+  //   try {
+  //     const newPost = await deleteComment(postId, commentId);
+  //     onPostUpdate(newPost);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // const handleCommentEdit = async (commentId, text) => {
+  //   try {
+  //     const newPost = await editComment(postId, commentId, text);
+  //     onPostUpdate(newPost);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // const token = getTokenData();
 
   return (
-    <div onKeyDown={handleKeyDown}>
-      <div className="my-4 flex items-center justify-between px-3">
-        <div className="mr-3 mb-1 flex flex-col items-center">
-          <img
-            className="h-8 w-8 rounded-full"
-            src={token.user.avatar}
-            alt=""
-          />
-          <p className="text-sm font-bold text-gray-700">{token.user.name}</p>
-        </div>
+    <>
+      <AddComment postId={postId} onPostUpdate={onPostUpdate} />
+      {/* <div onKeyDown={handleKeyDown} className="my-4 flex items-center justify-between px-2">
         <InputControl
           name="comment"
           value={comment}
@@ -58,21 +73,26 @@ export default function PostComments({ postId, comments, onPostUpdate }) {
           alt=""
           onClick={handleAddComment}
         />
-      </div>
+      </div> */}
 
-      {isLoading && (
+      {/* {isLoading && (
         <div className="m-2 text-center">
           <Loader />
         </div>
-      )}
+      )} */}
 
       <div className="max-h-60 overflow-x-hidden overflow-y-scroll">
         {comments.map((comment) => (
-          <Comment key={comment._id} comment={comment} />
+          <Comment
+            key={comment._id}
+            comment={comment}
+            postId={postId}
+            onPostUpdate={onPostUpdate}
+            // onCommentDelete={handleCommentDelete}
+            // onCommentEdit={handleCommentEdit}
+          />
         ))}
       </div>
-
-      {error && <Alert text={error} variant="danger" />}
-    </div>
+    </>
   );
 }

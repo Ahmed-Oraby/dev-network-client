@@ -3,7 +3,7 @@ import Button from './common/Button';
 import closeIcon from '../assets/icons/close.svg';
 import Loader from './common/Loader';
 
-export default function EditPost({ text, onCloseEdit, onSaveEdit }) {
+export default function EditModal({ text, onCloseEdit, onSaveEdit }) {
   const [value, setValue] = useState(text);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -13,7 +13,7 @@ export default function EditPost({ text, onCloseEdit, onSaveEdit }) {
   };
 
   return (
-    <div className="fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-gray-300 bg-opacity-50">
+    <div className="fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-gray-300 bg-opacity-50 p-5">
       <div className="w-96 max-w-lg rounded-lg border-2 border-black bg-white p-6">
         <div className="mb-3 flex items-center justify-end">
           <img
@@ -42,7 +42,7 @@ export default function EditPost({ text, onCloseEdit, onSaveEdit }) {
           <Button
             onClick={handlePostEdit}
             type="button"
-            text="Save Post"
+            text="Save"
             variant="secondary"
           />
           <Button

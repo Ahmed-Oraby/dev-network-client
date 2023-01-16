@@ -3,7 +3,7 @@ import closeIcon from '../assets/icons/close.svg';
 import Button from './common/Button';
 import Loader from './common/Loader';
 
-export default function DeletePost({ onCloseDelete, onPostDelete }) {
+export default function DeleteModal({ onCloseDelete, onPostDelete }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePostDelete = () => {
@@ -12,7 +12,7 @@ export default function DeletePost({ onCloseDelete, onPostDelete }) {
   };
 
   return (
-    <div className="fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-gray-300 bg-opacity-50">
+    <div className="fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-gray-300 bg-opacity-50 p-5">
       <div className="w-80 max-w-lg rounded-lg border-2 border-black bg-white p-6">
         <div className="mb-3 flex items-center justify-end">
           <img

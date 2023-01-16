@@ -51,7 +51,9 @@ export async function httpDelete(endPoint) {
       },
     });
     const responseJson = await response.json();
-    if (!response.ok) {
+    if (response.ok) {
+      return responseJson;
+    } else {
       return Promise.reject(responseJson);
     }
   } catch (error) {

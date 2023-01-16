@@ -8,7 +8,7 @@ export default function NavBar() {
   const tokenData = getTokenData();
 
   return (
-    <nav className="relative z-50 flex h-20 w-full items-center justify-between bg-gray-800 px-10 text-lg">
+    <nav className="relative z-50 flex h-20 w-full items-center justify-between bg-gray-800 px-5 text-lg sm:px-10">
       <div className="flex items-center justify-center">
         <Link
           className="rounded-md border-2 border-gray-200 bg-gray-900 px-4 py-2 text-lg font-bold text-white"
