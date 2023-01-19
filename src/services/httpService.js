@@ -35,7 +35,7 @@ export async function httpGet(endPoint) {
     if (response.ok) {
       return responseJson;
     } else {
-      return Promise.reject(responseJson);
+      return Promise.reject(response);
     }
   } catch (error) {
     console.log(error);

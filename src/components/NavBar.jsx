@@ -8,10 +8,10 @@ export default function NavBar() {
   const tokenData = getTokenData();
 
   return (
-    <nav className="relative z-50 flex h-20 w-full items-center justify-between bg-gray-800 px-5 text-lg sm:px-10">
+    <nav className="relative z-50 flex h-20 w-full items-center justify-between bg-gray-800 px-5 text-lg">
       <div className="flex items-center justify-center">
         <Link
-          className="rounded-md border-2 border-gray-200 bg-gray-900 px-4 py-2 text-lg font-bold text-white"
+          className="rounded-md border-2 border-gray-200 bg-gray-900 px-4 py-2 text-lg font-bold text-white hover:border-blue-500 hover:text-blue-500"
           to={tokenData ? '/dashboard' : '/'}
         >
           DevNet
@@ -42,7 +42,8 @@ export default function NavBar() {
               />
             </div>
             <NavItem to="/dashboard">Dashboard</NavItem>
-            <NavItem to="/profile">My Profile</NavItem>
+            <NavItem to="/developers">Developers</NavItem>
+            <NavItem to={`/profile/${tokenData.user.id}`}>Profile</NavItem>
             <NavItem to="/logout">Logout</NavItem>
           </>
         ) : (
@@ -63,7 +64,7 @@ function NavItem({ children, to }) {
       className={({ isActive }) =>
         `${
           isActive ? 'bg-gray-900' : ''
-        } mx-2 my-2 rounded-md px-3 py-2 text-lg font-medium text-gray-300 hover:bg-gray-700 hover:text-white md:my-0`
+        } mx-1 my-2 rounded-md px-3 py-2 text-lg font-medium text-gray-300 hover:bg-gray-700 hover:text-white md:my-0`
       }
     >
       {children}

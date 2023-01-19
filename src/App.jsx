@@ -10,14 +10,39 @@ import Dashboard from './components/Dashboard';
 import NewPost from './components/NewPost';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import Footer from './components/Footer';
+import UpdateProfile from './components/UpdateProfile';
+import Developers from './components/Developers';
 
 function App() {
-  const [count, setCount] = useState(0);
   return (
     <>
       <NavBar />
-      <div className=" min-h-screen">
+      <div className="min-h-screen p-3">
         <Routes>
+          <Route
+            path="/developers"
+            element={
+              <ProtectedRoute>
+                <Developers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/updateprofile"
+            element={
+              <ProtectedRoute>
+                <UpdateProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile/:userId"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/newpost"
             element={
@@ -35,14 +60,6 @@ function App() {
             }
           />
           <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          <Route
             path="/logout"
             element={
               <ProtectedRoute>
@@ -53,6 +70,7 @@ function App() {
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/" element={<Home />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </div>
       <Footer />

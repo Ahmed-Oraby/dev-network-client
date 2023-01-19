@@ -83,6 +83,7 @@ export default function RegisterForm() {
       <InputControl
         name="email"
         text="Email"
+        type="email"
         placeholder="Enter your email"
         value={formData.email}
         error={formError.email}
@@ -92,6 +93,7 @@ export default function RegisterForm() {
       <InputControl
         name="password"
         text="Password"
+        type="password"
         placeholder="Enter your password"
         value={formData.password}
         error={formError.password}

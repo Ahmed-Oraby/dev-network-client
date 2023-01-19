@@ -2,6 +2,7 @@ import Alert from './Alert';
 
 export default function InputControl({
   name,
+  type = 'text',
   text,
   value,
   error,
@@ -20,7 +21,7 @@ export default function InputControl({
         </label>
         <input
           className="rounded-md border border-gray-400 p-2 text-sm text-gray-700 shadow-md placeholder:text-gray-500 focus:outline-blue-500"
-          type={name}
+          type={type}
           id={name}
           name={name}
           value={value}

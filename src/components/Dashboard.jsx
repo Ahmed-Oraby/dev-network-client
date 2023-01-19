@@ -69,7 +69,7 @@ export default function Dashboard() {
   return (
     <>
       <div className="flex flex-col items-center justify-between p-5">
-        <h2 className="mt-6 text-center text-4xl text-gray-700">
+        <h2 className="mt-4 text-center text-4xl text-gray-700">
           Latest Posts
         </h2>
         <Button
