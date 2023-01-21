@@ -10,6 +10,7 @@ import PostSkeleton from './common/PostSkeleton';
 export default function Dashboard() {
   const [posts, setPosts] = useState(Array(10).fill(null));
   const [isEmpty, setIsEmpty] = useState(false);
+  const [pageNum, setPageNum] = useState(1);
 
   useEffect(() => {
     const { exp } = getTokenData();
@@ -18,14 +19,16 @@ export default function Dashboard() {
     if (expDate <= dateNow) {
       logout();
     }
-
-    fetchPosts();
   }, []);
 
-  const pageSize = 5;
-  let pageNum = 1;
+  useEffect(() => {
+    fetchPosts();
+  }, [pageNum]);
+
+  // let pageNum = 1;
 
   const fetchPosts = async () => {
+    const pageSize = 5;
     const newPosts = await getPosts(pageSize, pageNum);
     console.log(newPosts);
 
@@ -57,13 +60,14 @@ export default function Dashboard() {
 
   const handleLoadMore = async () => {
     if (posts.length === 0) {
-      pageNum = 1;
-      // setPageNum(1);
+      // pageNum = 1;
+      setPageNum(1);
     } else {
-      pageNum += 1;
-      // setPageNum(pageNum + 1);
+      // pageNum += 1;
+      setPageNum(pageNum + 1);
     }
-    fetchPosts();
+    console.log(pageNum);
+    // fetchPosts();
   };
 
   return (

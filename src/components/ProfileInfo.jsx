@@ -75,7 +75,7 @@ export default function ProfileInfo({ profile }) {
         />
       )}
 
-      <div className="my-6 flex flex-col items-center justify-center border-b-2 border-t-gray-300 pb-3 text-center font-bold text-gray-700">
+      <div className="my-6 flex flex-col items-center justify-center border-b-2 border-b-gray-200 pb-3 text-center font-bold text-gray-700">
         <img
           className="h-40 w-40 rounded-full"
           src={profile.user.avatar}
@@ -98,10 +98,13 @@ export default function ProfileInfo({ profile }) {
       </div>
 
       {(profile.education.length > 0 || token.user.id === profile.user._id) && (
-        <div className="m-5 mb-10 text-center">
+        <div className="m-5 mb-10 border-t-2 border-t-gray-200 pt-5 text-center">
           <h3 className="mb-2 text-left text-2xl font-bold text-gray-700">
             Education
           </h3>
+          {profile.education.map((item) => (
+            <Education key={item._id} education={item} />
+          ))}
           {token.user.id === profile.user._id && (
             <Button
               as="link"
@@ -114,10 +117,13 @@ export default function ProfileInfo({ profile }) {
       )}
       {(profile.experience.length > 0 ||
         token.user.id === profile.user._id) && (
-        <div className="m-5 mb-10 text-center">
+        <div className="m-5 mb-10 border-t-2 border-t-gray-200 pt-5 text-center">
           <h3 className="mb-2 text-left text-2xl font-bold text-gray-700">
             Experience
           </h3>
+          {profile.experience.map((item) => (
+            <Experience key={item._id} experience={item} />
+          ))}
           {token.user.id === profile.user._id && (
             <Button
               as="link"
@@ -129,7 +135,7 @@ export default function ProfileInfo({ profile }) {
         </div>
       )}
 
-      <div className="mt-5 flex items-center justify-center">
+      <div className="mt-10 flex items-center justify-center border-t-2 border-t-gray-200 pt-5">
         {socialData.map((item, index) => (
           <SocialLink key={index} href={item.href} icon={item.icon} />
         ))}
@@ -163,3 +169,38 @@ const SocialLink = ({ href, icon }) =>
       <img className="h-7 w-7 cursor-pointer" src={icon} alt="" />
     </a>
   ) : null;
+
+const Education = ({ education }) => {
+  const fromDate = new Date(education.from).toLocaleDateString();
+  const toDate = new Date(education.to).toLocaleDateString();
+  return (
+    <div className="mb-8 px-2 text-left text-lg font-bold text-gray-700">
+      <p className="mb-1 text-gray-800">
+        {education.school} - {education.specialization},{' '}
+        <span className="italic text-gray-600">{education.degree}</span>
+      </p>
+      <p className="mb-1 text-sm text-gray-500">
+        {fromDate} - {education.current ? 'PRESENT' : toDate}
+      </p>
+      <p className="mb-1 text-sm">{education.description}</p>
+      <p className="mb-1 text-sm">Grade: {education.grade}</p>
+    </div>
+  );
+};
+
+const Experience = ({ experience }) => {
+  const fromDate = new Date(experience.from).toLocaleDateString();
+  const toDate = new Date(experience.to).toLocaleDateString();
+  return (
+    <div className="mb-8 px-2 text-left text-lg font-bold text-gray-700">
+      <p className="mb-1 text-gray-800">
+        {experience.company} -{' '}
+        <span className="text-gray-500">{experience.title}</span>
+      </p>
+      <p className="mb-1 text-sm text-gray-500">
+        {fromDate} - {experience.current ? 'PRESENT' : toDate}
+      </p>
+      <p className="mb-1 text-sm">{experience.description}</p>
+    </div>
+  );
+};

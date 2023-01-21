@@ -22,7 +22,7 @@ function App() {
       <div className="min-h-screen p-3">
         <Routes>
           <Route
-            path="/newexperience"
+            path="newexperience"
             element={
               <ProtectedRoute>
                 <NewExperience />
@@ -30,7 +30,7 @@ function App() {
             }
           />
           <Route
-            path="/neweducation"
+            path="neweducation"
             element={
               <ProtectedRoute>
                 <NewEducation />
@@ -38,7 +38,7 @@ function App() {
             }
           />
           <Route
-            path="/developers"
+            path="developers"
             element={
               <ProtectedRoute>
                 <Developers />
@@ -46,7 +46,7 @@ function App() {
             }
           />
           <Route
-            path="/updateprofile"
+            path="updateprofile"
             element={
               <ProtectedRoute>
                 <UpdateProfile />
@@ -54,7 +54,7 @@ function App() {
             }
           />
           <Route
-            path="/profile/:userId"
+            path="profile/:userId"
             element={
               <ProtectedRoute>
                 <Profile />
@@ -62,7 +62,7 @@ function App() {
             }
           />
           <Route
-            path="/newpost"
+            path="newpost"
             element={
               <ProtectedRoute>
                 <NewPost />
@@ -70,7 +70,7 @@ function App() {
             }
           />
           <Route
-            path="/dashboard"
+            path="dashboard"
             element={
               <ProtectedRoute>
                 <Dashboard />
@@ -78,7 +78,7 @@ function App() {
             }
           />
           <Route
-            path="/logout"
+            path="logout"
             element={
               <ProtectedRoute>
                 <Logout />

@@ -92,14 +92,14 @@ export default function UpdateProfile() {
   }
   return (
     <form
-      className="mx-auto my-10 flex max-w-5xl flex-col items-center justify-center rounded-md border-2 border-black py-6 px-3 shadow-lg sm:px-20"
+      className="mx-auto my-10 flex max-w-3xl flex-col items-center justify-center rounded-md border-2 border-black py-6 px-3 shadow-lg sm:px-10"
       onSubmit={handleSubmit}
     >
       <h2 className="mb-10 w-full border-b-2 border-gray-700 pb-2 text-center text-3xl text-gray-700">
         Update Your Profile
       </h2>
 
-      <div className="w-full px-3 sm:px-20">
+      <div className="w-full px-3 sm:px-10">
         {profileForm.map((item, index) => (
           <InputControl
             key={index}
