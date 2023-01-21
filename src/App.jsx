@@ -12,6 +12,8 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 import Footer from './components/Footer';
 import UpdateProfile from './components/UpdateProfile';
 import Developers from './components/Developers';
+import NewExperience from './components/NewExperience';
+import NewEducation from './components/NewEducation';
 
 function App() {
   return (
@@ -19,6 +21,22 @@ function App() {
       <NavBar />
       <div className="min-h-screen p-3">
         <Routes>
+          <Route
+            path="/newexperience"
+            element={
+              <ProtectedRoute>
+                <NewExperience />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/neweducation"
+            element={
+              <ProtectedRoute>
+                <NewEducation />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/developers"
             element={

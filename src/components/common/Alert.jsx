@@ -9,7 +9,7 @@ export default function Alert({ text, variant = 'primary' }) {
 
   return (
     <div
-      className={`${alertClasses[variant]} m-4 mx-auto w-full max-w-sm rounded-lg p-5 text-center text-base`}
+      className={`${alertClasses[variant]} m-4 mx-auto w-full max-w-md rounded-lg p-5 text-center text-base`}
     >
       {text}
     </div>

@@ -7,6 +7,7 @@ export default function Button({
   variant = 'primary',
   as = 'button',
   to,
+  state,
   onClick,
 }) {
   const btnClasses = {
@@ -23,7 +24,7 @@ export default function Button({
   );
 
   const link = (
-    <Link className={btnClasses[variant]} to={to}>
+    <Link className={btnClasses[variant]} to={to} state={state}>
       {text}
     </Link>
   );

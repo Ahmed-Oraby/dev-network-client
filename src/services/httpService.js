@@ -7,7 +7,6 @@ export async function httpPost(endPoint, body, method = 'POST') {
     const response = await fetch(apiUrl + endPoint, {
       method: method,
       headers: {
-        // Accept: 'application/json',
         'Content-Type': 'application/json',
         'x-auth-token': token,
       },

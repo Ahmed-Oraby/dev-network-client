@@ -6,10 +6,12 @@ import statusIcon from '../assets/icons/status.svg';
 import linkedinIcon from '../assets/icons/linkedin.svg';
 import twitterIcon from '../assets/icons/twitter.svg';
 import youtubeIcon from '../assets/icons/youtube.svg';
+import linkIcon from '../assets/icons/link.svg';
 import Button from './common/Button';
 import { getTokenData } from '../services/authService';
 
 export default function ProfileInfo({ profile }) {
+  console.log(profile);
   const profileData = [
     {
       name: profile.status,
@@ -22,6 +24,19 @@ export default function ProfileInfo({ profile }) {
     {
       name: profile.company,
       icon: companyIcon,
+    },
+    {
+      name: profile.website && (
+        <a
+          href={profile.website}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-700"
+        >
+          {profile.website}
+        </a>
+      ),
+      icon: linkIcon,
     },
   ];
 
@@ -56,10 +71,11 @@ export default function ProfileInfo({ profile }) {
           to="/updateprofile"
           text="Edit your profile"
           variant="secondary"
+          state={{ profile }}
         />
       )}
 
-      <div className="my-6 flex flex-col items-center justify-center text-center font-bold text-gray-700">
+      <div className="my-6 flex flex-col items-center justify-center border-b-2 border-t-gray-300 pb-3 text-center font-bold text-gray-700">
         <img
           className="h-40 w-40 rounded-full"
           src={profile.user.avatar}
@@ -69,21 +85,51 @@ export default function ProfileInfo({ profile }) {
         <p className="mt-3 text-lg">{profile.bio}</p>
       </div>
 
-      <div className="flex flex-col border-t-2 border-t-gray-300 sm:flex-row">
-        <div className="m-2 w-full p-2 sm:w-1/2">
-          {profileData.map((item, index) => (
-            <Info key={index} name={item.name} icon={item.icon} />
-          ))}
-        </div>
-
-        <div className="m-2 flex h-fit w-full flex-wrap items-center p-2 sm:w-1/2">
-          {profile.skills.map((skill, index) => (
-            <Skill key={index} skill={skill} />
-          ))}
-        </div>
+      <div className="mt-5 w-full">
+        {profileData.map((item, index) => (
+          <Info key={index} name={item.name} icon={item.icon} />
+        ))}
       </div>
 
-      <div className="mt-3 flex items-center justify-center border-t-2 border-t-gray-300 pt-2">
+      <div className="mt-5 flex w-full flex-wrap items-center justify-center">
+        {profile.skills.map((skill, index) => (
+          <Skill key={index} skill={skill} />
+        ))}
+      </div>
+
+      {(profile.education.length > 0 || token.user.id === profile.user._id) && (
+        <div className="m-5 mb-10 text-center">
+          <h3 className="mb-2 text-left text-2xl font-bold text-gray-700">
+            Education
+          </h3>
+          {token.user.id === profile.user._id && (
+            <Button
+              as="link"
+              to="/neweducation"
+              text="Add Education"
+              variant="secondary"
+            />
+          )}
+        </div>
+      )}
+      {(profile.experience.length > 0 ||
+        token.user.id === profile.user._id) && (
+        <div className="m-5 mb-10 text-center">
+          <h3 className="mb-2 text-left text-2xl font-bold text-gray-700">
+            Experience
+          </h3>
+          {token.user.id === profile.user._id && (
+            <Button
+              as="link"
+              to="/newexperience"
+              text="Add Experience"
+              variant="secondary"
+            />
+          )}
+        </div>
+      )}
+
+      <div className="mt-5 flex items-center justify-center">
         {socialData.map((item, index) => (
           <SocialLink key={index} href={item.href} icon={item.icon} />
         ))}
@@ -94,14 +140,14 @@ export default function ProfileInfo({ profile }) {
 
 const Info = ({ name, icon }) =>
   name ? (
-    <div className="mt-3 flex items-center">
+    <div className="mt-3 flex items-center justify-center">
       <img src={icon} className="mr-2 inline-block h-5 w-5" alt="" />
       <span className="text-lg font-medium text-gray-600">{name}</span>
     </div>
   ) : null;
 
 const Skill = ({ skill }) => (
-  <span className="m-2 rounded-full bg-cyan-800 px-3 py-1 text-sm uppercase text-gray-100">
+  <span className="m-2 rounded-full bg-cyan-800 px-3 py-1 text-xs uppercase text-gray-100">
     {skill}
   </span>
 );
@@ -114,6 +160,6 @@ const SocialLink = ({ href, icon }) =>
       rel="noopener noreferrer"
       className="mx-2 text-blue-700"
     >
-      <img className="h-8 w-8 cursor-pointer" src={icon} alt="" />
+      <img className="h-7 w-7 cursor-pointer" src={icon} alt="" />
     </a>
   ) : null;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { getTokenData } from '../services/authService';
 // import { getTokenData } from '../services/authService';
 import { getOwnProfile, getUserProfile } from '../services/profileService';
@@ -13,18 +13,19 @@ export default function Profile() {
   const [createProfile, setCreateProfile] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
 
+  const location = useLocation();
+  const update = location.state?.update;
+
   useEffect(() => {
     getProfile();
-  }, []);
+  }, [update]);
 
   const { userId } = useParams();
   const token = getTokenData();
-  console.log(token);
 
   async function getProfile() {
     try {
       const profile = await getUserProfile(userId);
-      console.log(profile);
       setIsLoading(false);
       setUserProfile(profile);
     } catch (error) {

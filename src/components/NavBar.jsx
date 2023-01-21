@@ -43,7 +43,12 @@ export default function NavBar() {
             </div>
             <NavItem to="/dashboard">Dashboard</NavItem>
             <NavItem to="/developers">Developers</NavItem>
-            <NavItem to={`/profile/${tokenData.user.id}`}>Profile</NavItem>
+            <NavItem
+              to={`/profile/${tokenData.user.id}`}
+              state={{ update: true }}
+            >
+              My Profile
+            </NavItem>
             <NavItem to="/logout">Logout</NavItem>
           </>
         ) : (
@@ -57,9 +62,10 @@ export default function NavBar() {
   );
 }
 
-function NavItem({ children, to }) {
+function NavItem({ children, to, state = null }) {
   return (
     <NavLink
+      state={state}
       to={to}
       className={({ isActive }) =>
         `${
