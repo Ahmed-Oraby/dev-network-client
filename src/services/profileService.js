@@ -1,4 +1,4 @@
-import { httpGet, httpPost } from './httpService';
+import { httpDelete, httpGet, httpPost } from './httpService';
 
 export function createProfile(profile) {
   return httpPost('/profile', profile);
@@ -16,6 +16,14 @@ export function addEducation(education) {
   return httpPost('/profile/education', education, 'PUT');
 }
 
+export function removeEducation(educationId) {
+  return httpDelete(`/profile/education/${educationId}`);
+}
+
 export function addExperience(experience) {
   return httpPost('/profile/experience', experience, 'PUT');
+}
+
+export function removeExperience(experienceId) {
+  return httpDelete(`/profile/experience/${experienceId}`);
 }

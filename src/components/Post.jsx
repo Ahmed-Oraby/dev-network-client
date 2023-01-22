@@ -40,7 +40,7 @@ export default function Post({ post, onPostUpdate, onPostDelete }) {
   };
 
   return (
-    <div className="m-5 w-full rounded-lg border border-gray-400 bg-white py-6 px-4 sm:w-4/5 md:w-3/4 md:px-8 lg:w-3/5 xl:w-1/2">
+    <div className="m-5 w-full rounded-lg border border-gray-400 bg-white py-6 px-4 transition-shadow duration-300 ease-in-out hover:shadow-xl sm:w-4/5 md:w-3/4 md:px-8 lg:w-3/5 xl:w-1/2">
       <div className="flex items-center justify-between">
         <Link to={`/profile/${user._id}`} className="flex items-center">
           <img

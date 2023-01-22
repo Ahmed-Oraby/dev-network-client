@@ -36,6 +36,24 @@ export default function Profile() {
     }
   }
 
+  const handleEducationDelete = (educationId) => {
+    const newUserProfile = { ...userProfile };
+    const educationIndex = newUserProfile.education.findIndex(
+      (item) => item._id === educationId
+    );
+    newUserProfile.education.splice(educationIndex, 1);
+    setUserProfile(newUserProfile);
+  };
+
+  const handleExperienceDelete = (experienceId) => {
+    const newUserProfile = { ...userProfile };
+    const experienceIndex = newUserProfile.experience.findIndex(
+      (item) => item._id === experienceId
+    );
+    newUserProfile.experience.splice(experienceIndex, 1);
+    setUserProfile(newUserProfile);
+  };
+
   return (
     <div className="mb-10 p-2 text-center">
       {isLoading && <ProfileSkeleton />}
@@ -60,7 +78,13 @@ export default function Profile() {
         </h2>
       )}
 
-      {userProfile && <ProfileInfo profile={userProfile} />}
+      {userProfile && (
+        <ProfileInfo
+          profile={userProfile}
+          onEducationDelete={handleEducationDelete}
+          onExperienceDelete={handleExperienceDelete}
+        />
+      )}
     </div>
   );
 }

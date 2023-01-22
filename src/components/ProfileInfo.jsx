@@ -9,9 +9,14 @@ import youtubeIcon from '../assets/icons/youtube.svg';
 import linkIcon from '../assets/icons/link.svg';
 import Button from './common/Button';
 import { getTokenData } from '../services/authService';
+import Education from './Education';
+import Experience from './Experience';
 
-export default function ProfileInfo({ profile }) {
-  console.log(profile);
+export default function ProfileInfo({
+  profile,
+  onEducationDelete,
+  onExperienceDelete,
+}) {
   const profileData = [
     {
       name: profile.status,
@@ -60,8 +65,6 @@ export default function ProfileInfo({ profile }) {
   ];
 
   const token = getTokenData();
-  // const profileDate = new Date(profile.date).toLocaleDateString();
-  // console.log(profileDate);
 
   return (
     <div className="my-5 mx-auto w-full rounded-lg bg-white py-6 px-4 text-center sm:w-4/5 sm:text-right md:w-3/4 md:px-8 lg:w-3/5 xl:w-1/2">
@@ -103,7 +106,12 @@ export default function ProfileInfo({ profile }) {
             Education
           </h3>
           {profile.education.map((item) => (
-            <Education key={item._id} education={item} />
+            <Education
+              key={item._id}
+              education={item}
+              profileUserId={profile.user._id}
+              onEducationDelete={onEducationDelete}
+            />
           ))}
           {token.user.id === profile.user._id && (
             <Button
@@ -122,7 +130,12 @@ export default function ProfileInfo({ profile }) {
             Experience
           </h3>
           {profile.experience.map((item) => (
-            <Experience key={item._id} experience={item} />
+            <Experience
+              key={item._id}
+              experience={item}
+              profileUserId={profile.user._id}
+              onExperienceDelete={onExperienceDelete}
+            />
           ))}
           {token.user.id === profile.user._id && (
             <Button
@@ -170,37 +183,19 @@ const SocialLink = ({ href, icon }) =>
     </a>
   ) : null;
 
-const Education = ({ education }) => {
-  const fromDate = new Date(education.from).toLocaleDateString();
-  const toDate = new Date(education.to).toLocaleDateString();
-  return (
-    <div className="mb-8 px-2 text-left text-lg font-bold text-gray-700">
-      <p className="mb-1 text-gray-800">
-        {education.school} - {education.specialization},{' '}
-        <span className="italic text-gray-600">{education.degree}</span>
-      </p>
-      <p className="mb-1 text-sm text-gray-500">
-        {fromDate} - {education.current ? 'PRESENT' : toDate}
-      </p>
-      <p className="mb-1 text-sm">{education.description}</p>
-      <p className="mb-1 text-sm">Grade: {education.grade}</p>
-    </div>
-  );
-};
-
-const Experience = ({ experience }) => {
-  const fromDate = new Date(experience.from).toLocaleDateString();
-  const toDate = new Date(experience.to).toLocaleDateString();
-  return (
-    <div className="mb-8 px-2 text-left text-lg font-bold text-gray-700">
-      <p className="mb-1 text-gray-800">
-        {experience.company} -{' '}
-        <span className="text-gray-500">{experience.title}</span>
-      </p>
-      <p className="mb-1 text-sm text-gray-500">
-        {fromDate} - {experience.current ? 'PRESENT' : toDate}
-      </p>
-      <p className="mb-1 text-sm">{experience.description}</p>
-    </div>
-  );
-};
+// const Experience = ({ experience }) => {
+//   const fromDate = new Date(experience.from).toLocaleDateString();
+//   const toDate = new Date(experience.to).toLocaleDateString();
+//   return (
+//     <div className="mb-8 px-2 text-left text-lg font-bold text-gray-700">
+//       <p className="mb-1 text-gray-800">
+//         {experience.company} -{' '}
+//         <span className="text-gray-500">{experience.title}</span>
+//       </p>
+//       <p className="mb-1 text-sm text-gray-500">
+//         {fromDate} - {experience.current ? 'PRESENT' : toDate}
+//       </p>
+//       <p className="mb-1 text-sm">{experience.description}</p>
+//     </div>
+//   );
+// };

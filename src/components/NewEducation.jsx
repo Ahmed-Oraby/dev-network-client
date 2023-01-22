@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { addEducation } from '../services/profileService';
 import Alert from './common/Alert';
 import Button from './common/Button';
 import InputControl from './common/InputControl';
@@ -15,9 +17,9 @@ const initialEducationForm = {
   current: false,
 };
 
-const EducationForm = [
-  { name: 'school', text: 'School Name' },
-  { name: 'specialization', text: 'Specialization' },
+const educationForm = [
+  { name: 'school', text: 'School Name*' },
+  { name: 'specialization', text: 'Specialization*' },
   { name: 'degree', text: 'Degree' },
   { name: 'grade', text: 'Grade' },
   { name: 'description', text: 'Description' },
@@ -26,18 +28,14 @@ const EducationForm = [
 ];
 
 export default function NewEducation() {
-  const [educationData, setFormData] = useState(initialEducationForm);
+  const [educationData, setEducationData] = useState(initialEducationForm);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const navigate = useNavigate();
+
   function handleChange(e) {
-    // if (e.target.type === 'checkbox') {
-    //   setFormData({
-    //     ...educationData,
-    //     [e.target.name]: e.target.checked,
-    //   });
-    // }
-    setFormData({
+    setEducationData({
       ...educationData,
       [e.target.name]:
         e.target.type === 'checkbox' ? e.target.checked : e.target.value,
@@ -46,8 +44,23 @@ export default function NewEducation() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(educationData);
-    // submitForm();
+    submitForm();
+  }
+
+  async function submitForm() {
+    setIsLoading(true);
+
+    let formError = '';
+
+    try {
+      const newProfile = await addEducation(educationData);
+      navigate(`/profile/${newProfile.user._id}`);
+    } catch (error) {
+      console.log(error);
+      formError = error.message || 'An error occured, please try again.';
+    }
+    setIsLoading(false);
+    setError(formError);
   }
 
   return (
@@ -59,17 +72,18 @@ export default function NewEducation() {
         Add New Education
       </h2>
       <div className="w-full px-3 sm:px-10">
-        {EducationForm.map((item, index) => (
+        {educationForm.map((item, index) => (
           <InputControl
             key={index}
             name={item.name}
             text={item.text}
             type={item.type || 'text'}
             value={educationData[item.name]}
+            disabled={isLoading}
             onChange={handleChange}
           />
         ))}
-        <div className="mt-4 flex items-center">
+        <div className="mt-4 flex items-center p-2">
           <input
             className="mr-2 h-4 w-4"
             id="current"
@@ -91,7 +105,7 @@ export default function NewEducation() {
       <div className="mt-4 text-center">
         {isLoading && <Loader />}
         {error && <Alert variant="danger" text={error} />}
-        <Button type="submit" text="Update your profile" variant="primary" />
+        <Button type="submit" text="Add Education" variant="primary" />
       </div>
     </form>
   );
