@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { getTokenData } from '../services/authService';
-// import { getTokenData } from '../services/authService';
 import { getOwnProfile, getUserProfile } from '../services/profileService';
 import Button from './common/Button';
-// import Loader from './common/Loader';
 import ProfileSkeleton from './common/ProfileSkeleton';
 import ProfileInfo from './ProfileInfo';
 

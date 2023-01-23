@@ -5,5 +5,5 @@ import { getAuthToken } from '../services/authService';
 export default function Home() {
   const token = getAuthToken();
   if (token) return <Navigate to="/dashboard" replace />;
-  return <div>Home</div>;
+  return <Navigate to="/register" replace />;
 }

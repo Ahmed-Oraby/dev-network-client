@@ -160,7 +160,7 @@ export default function ProfileInfo({
 const Info = ({ name, icon }) =>
   name ? (
     <div className="mt-3 flex items-center justify-center">
-      <img src={icon} className="mr-2 inline-block h-5 w-5" alt="" />
+      <img src={icon} className="mr-1 inline-block h-5 w-5" alt="" />
       <span className="text-lg font-medium text-gray-600">{name}</span>
     </div>
   ) : null;
@@ -182,20 +182,3 @@ const SocialLink = ({ href, icon }) =>
       <img className="h-7 w-7 cursor-pointer" src={icon} alt="" />
     </a>
   ) : null;
-
-// const Experience = ({ experience }) => {
-//   const fromDate = new Date(experience.from).toLocaleDateString();
-//   const toDate = new Date(experience.to).toLocaleDateString();
-//   return (
-//     <div className="mb-8 px-2 text-left text-lg font-bold text-gray-700">
-//       <p className="mb-1 text-gray-800">
-//         {experience.company} -{' '}
-//         <span className="text-gray-500">{experience.title}</span>
-//       </p>
-//       <p className="mb-1 text-sm text-gray-500">
-//         {fromDate} - {experience.current ? 'PRESENT' : toDate}
-//       </p>
-//       <p className="mb-1 text-sm">{experience.description}</p>
-//     </div>
-//   );
-// };

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
 import { getTokenData, logout } from '../services/authService';
 import { getPosts } from '../services/postService';
 import Alert from './common/Alert';
@@ -25,12 +24,9 @@ export default function Dashboard() {
     fetchPosts();
   }, [pageNum]);
 
-  // let pageNum = 1;
-
   const fetchPosts = async () => {
     const pageSize = 5;
     const newPosts = await getPosts(pageSize, pageNum);
-    console.log(newPosts);
 
     if (newPosts.length === 0) {
       setIsEmpty(true);
@@ -46,7 +42,6 @@ export default function Dashboard() {
   const handlePostUpdate = (newPost) => {
     const newPosts = [...posts];
     const postIndex = newPosts.findIndex((item) => item._id === newPost._id);
-    // newPosts.splice(postIndex, 1, newPost);
     newPosts[postIndex] = newPost;
     setPosts(newPosts);
   };
@@ -60,14 +55,10 @@ export default function Dashboard() {
 
   const handleLoadMore = async () => {
     if (posts.length === 0) {
-      // pageNum = 1;
       setPageNum(1);
     } else {
-      // pageNum += 1;
       setPageNum(pageNum + 1);
     }
-    console.log(pageNum);
-    // fetchPosts();
   };
 
   return (
@@ -84,20 +75,19 @@ export default function Dashboard() {
         />
       </div>
 
-      <div className="mt-5 flex min-w-fit flex-col items-center justify-center bg-gray-50 p-5">
-        {posts.length !== 0 &&
-          posts.map((post, index) =>
-            post ? (
-              <Post
-                key={post._id}
-                post={post}
-                onPostUpdate={handlePostUpdate}
-                onPostDelete={handlePostDelete}
-              />
-            ) : (
-              <PostSkeleton key={index} />
-            )
-          )}
+      <div className="mt-5 flex min-w-fit flex-col items-center justify-center p-5">
+        {posts.map((post, index) =>
+          post ? (
+            <Post
+              key={post._id}
+              post={post}
+              onPostUpdate={handlePostUpdate}
+              onPostDelete={handlePostDelete}
+            />
+          ) : (
+            <PostSkeleton key={index} />
+          )
+        )}
       </div>
 
       <div className="mb-10 flex flex-col items-center justify-between p-5">

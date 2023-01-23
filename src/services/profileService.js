@@ -12,6 +12,10 @@ export function getUserProfile(userId) {
   return httpGet(`/profile/user/${userId}`);
 }
 
+export function getAllProfiles(pageSize, pageNumber) {
+  return httpGet(`/profile?page_size=${pageSize}&page_number=${pageNumber}`);
+}
+
 export function addEducation(education) {
   return httpPost('/profile/education', education, 'PUT');
 }
