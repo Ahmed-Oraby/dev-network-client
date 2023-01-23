@@ -34,7 +34,7 @@ export default function NavBar() {
         {tokenData ? (
           <>
             <div className="mx-2 mb-3 flex w-full items-center justify-center border-b-2 border-b-gray-500 py-3 md:mb-0 md:w-auto md:border-none">
-              <span className="mr-3 font-bold text-gray-200">{`Hi, ${tokenData.user.name}`}</span>
+              <span className="mr-2 text-center font-bold text-gray-200">{`Hi, ${tokenData.user.name}`}</span>
               <img
                 className="mr-0 h-8 w-8 rounded-full outline outline-white sm:mr-5"
                 src={tokenData.user.avatar}

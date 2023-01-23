@@ -1,5 +1,5 @@
-import { apiUrl, authToken } from '../../config.json';
-
+const apiUrl = import.meta.env.VITE_API_URL;
+const authToken = import.meta.env.VITE_AUTH_TOKEN;
 const token = localStorage.getItem(authToken);
 
 export async function httpPost(endPoint, body, method = 'POST') {

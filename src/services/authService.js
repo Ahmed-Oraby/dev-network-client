@@ -1,6 +1,7 @@
 import jwtDecode from 'jwt-decode';
-import { authToken } from '../../config.json';
 import { httpPost } from './httpService';
+
+const authToken = import.meta.env.VITE_AUTH_TOKEN;
 
 export function getTokenData() {
   const token = localStorage.getItem(authToken);
