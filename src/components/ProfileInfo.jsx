@@ -102,7 +102,7 @@ export default function ProfileInfo({
 
       {(profile.education.length > 0 || token.user.id === profile.user._id) && (
         <div className="m-5 mb-10 border-t-2 border-t-gray-200 pt-5 text-center">
-          <h3 className="mb-2 text-left text-2xl font-bold text-gray-700">
+          <h3 className="mb-5 text-left text-2xl font-bold text-gray-700">
             Education
           </h3>
           {profile.education.map((item) => (
@@ -126,7 +126,7 @@ export default function ProfileInfo({
       {(profile.experience.length > 0 ||
         token.user.id === profile.user._id) && (
         <div className="m-5 mb-10 border-t-2 border-t-gray-200 pt-5 text-center">
-          <h3 className="mb-2 text-left text-2xl font-bold text-gray-700">
+          <h3 className="mb-5 text-left text-2xl font-bold text-gray-700">
             Experience
           </h3>
           {profile.experience.map((item) => (

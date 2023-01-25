@@ -105,7 +105,12 @@ export default function RegisterForm() {
           <Loader />
         </div>
       )}
-      <Button type="submit" text="Register" variant="primary" />
+      <Button
+        type="submit"
+        text="Register"
+        variant="primary"
+        disabled={isLoading}
+      />
       <p className="mt-3 text-sm text-gray-700">
         Already have an account?{' '}
         <Link className="pl-1 text-blue-700 underline" to="/login">

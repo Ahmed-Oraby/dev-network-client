@@ -116,7 +116,12 @@ export default function UpdateProfile() {
       <div className="mt-4 text-center">
         {isLoading && <Loader />}
         {error && <Alert variant="danger" text={error} />}
-        <Button type="submit" text="Update your profile" variant="primary" />
+        <Button
+          type="submit"
+          text="Update your profile"
+          variant="primary"
+          disabled={isLoading}
+        />
       </div>
     </form>
   );

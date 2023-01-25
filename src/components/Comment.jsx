@@ -7,6 +7,7 @@ import deleteIcon from '../assets/icons/delete.svg';
 import EditModal from './EditModal';
 import DeleteModal from './DeleteModal';
 import { Link } from 'react-router-dom';
+import formatName from '../utils/formatName';
 
 export default function Comment({ comment, postId, onPostUpdate }) {
   const [showEdit, setShowEdit] = useState(false);
@@ -46,13 +47,15 @@ export default function Comment({ comment, postId, onPostUpdate }) {
             src={comment.user.avatar}
             alt=""
           />
-          <p className="text-sm font-bold text-gray-700">{comment.user.name}</p>
+          <p className="text-sm font-bold text-gray-700">
+            {formatName(comment.user.name)}
+          </p>
         </Link>
-        <p className="m-2 flex-grow text-base text-blue-900 sm:ml-4">
+        <p className="ml-2 flex-grow text-base text-blue-900 sm:ml-4">
           {comment.text}
         </p>
         {token.user.id === comment.user._id && (
-          <div className="flex w-14 items-center justify-between">
+          <div className="flex h-14 flex-col items-center justify-between">
             <img
               onClick={() => setShowEdit(true)}
               className="h-5 w-5 cursor-pointer"
@@ -68,7 +71,7 @@ export default function Comment({ comment, postId, onPostUpdate }) {
           </div>
         )}
       </div>
-      <p className="m-1 text-right text-sm text-gray-500">
+      <p className="m-1 pt-1 text-right text-sm text-gray-500">
         {formatDate(comment.date)}
       </p>
 

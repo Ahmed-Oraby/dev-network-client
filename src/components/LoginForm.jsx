@@ -96,7 +96,12 @@ export default function LoginForm() {
           <Loader />
         </div>
       )}
-      <Button type="submit" text="Login" variant="primary" />
+      <Button
+        type="submit"
+        text="Login"
+        variant="primary"
+        disabled={isLoading}
+      />
       <p className="mt-3 text-sm text-gray-700">
         Don't have an account?{' '}
         <Link className="pl-1 text-blue-700 underline" to="/register">

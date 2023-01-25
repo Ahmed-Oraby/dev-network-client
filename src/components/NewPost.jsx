@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createPost } from '../services/postService';
 import Alert from './common/Alert';
 import Button from './common/Button';
@@ -8,6 +9,8 @@ export default function NewPost() {
   const [text, setText] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   // const handleChange = (e) => {
   //   setText(e.target.value);
@@ -25,7 +28,8 @@ export default function NewPost() {
       await createPost(text);
       //TODO: error handling
       //   setError('');
-      window.location.replace('/dashboard');
+      // window.location.replace('/dashboard');
+      navigate('/dashboard');
     } catch (error) {
       setError(error.message || 'An error occured, please try again.');
     }
@@ -56,13 +60,12 @@ export default function NewPost() {
 
       {error && <Alert text={error} variant="danger" />}
 
-      <Button type="submit" text="Create Post" variant="secondary" />
-      {/* <button
+      <Button
         type="submit"
-        className="mt-4 border-2 border-gray-600 bg-gray-200 px-6 py-2 text-base uppercase text-gray-700 hover:bg-gray-300"
-      >
-        Create Post
-      </button> */}
+        text="Create Post"
+        variant="secondary"
+        disabled={isLoading}
+      />
     </form>
   );
 }

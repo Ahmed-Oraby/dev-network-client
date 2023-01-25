@@ -105,7 +105,12 @@ export default function NewEducation() {
       <div className="mt-4 text-center">
         {isLoading && <Loader />}
         {error && <Alert variant="danger" text={error} />}
-        <Button type="submit" text="Add Education" variant="primary" />
+        <Button
+          type="submit"
+          text="Add Education"
+          variant="primary"
+          disabled={isLoading}
+        />
       </div>
     </form>
   );

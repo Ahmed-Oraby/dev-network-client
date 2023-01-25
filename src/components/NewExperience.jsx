@@ -101,7 +101,12 @@ export default function NewExperience() {
       <div className="mt-4 text-center">
         {isLoading && <Loader />}
         {error && <Alert variant="danger" text={error} />}
-        <Button type="submit" text="Add Experience" variant="primary" />
+        <Button
+          type="submit"
+          text="Add Experience"
+          variant="primary"
+          disabled={isLoading}
+        />
       </div>
     </form>
   );

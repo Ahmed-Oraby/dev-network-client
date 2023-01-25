@@ -3,11 +3,14 @@ import InputControl from './common/InputControl';
 import sendIcon from '../assets/icons/send.svg';
 import Loader from './common/Loader';
 import { addComment } from '../services/postService';
+import { getTokenData } from '../services/authService';
 
 export default function AddComment({ postId, onPostUpdate }) {
   const [comment, setComment] = useState('');
   //   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const token = getTokenData();
 
   const handleAddComment = async () => {
     if (!comment) return;
@@ -37,6 +40,11 @@ export default function AddComment({ postId, onPostUpdate }) {
         onKeyDown={handleKeyDown}
         className="my-4 flex items-center justify-between px-2"
       >
+        <img
+          className="mr-2 mb-2 h-10 w-10 rounded-full"
+          src={token.user.avatar}
+          alt=""
+        />
         <InputControl
           name="comment"
           value={comment}

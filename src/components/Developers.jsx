@@ -4,11 +4,13 @@ import Button from './common/Button';
 import locationIcon from '../assets/icons/location.svg';
 import ProfileSkeleton from './common/ProfileSkeleton';
 import Alert from './common/Alert';
+import Loader from './common/Loader';
 
 export default function Developers() {
   const [profiles, setProfiles] = useState(Array(10).fill(null));
   const [isEmpty, setIsEmpty] = useState(false);
   const [pageNum, setPageNum] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchProfiles();
@@ -17,6 +19,7 @@ export default function Developers() {
   const fetchProfiles = async () => {
     const pageSize = 5;
     const newProfiles = await getAllProfiles(pageSize, pageNum);
+    setIsLoading(false);
 
     if (newProfiles.length === 0) {
       setIsEmpty(true);
@@ -29,7 +32,8 @@ export default function Developers() {
     setIsEmpty(false);
   };
 
-  const handleLoadMore = async () => {
+  const handleLoadMore = () => {
+    setIsLoading(true);
     if (profiles.length === 0) {
       setPageNum(1);
     } else {
@@ -55,11 +59,17 @@ export default function Developers() {
         {isEmpty && profiles[0] && (
           <Alert text="There are no more developers." variant="primary" />
         )}
+        {isLoading && (
+          <div className="mt-4">
+            <Loader />
+          </div>
+        )}
         {!isEmpty && (
           <Button
             type="button"
             text="Load More"
             variant="secondary"
+            disabled={isLoading}
             onClick={handleLoadMore}
           />
         )}

@@ -37,7 +37,7 @@ export default function Education({
   };
 
   return (
-    <div className="mb-8 flex items-start justify-between px-2 text-left text-lg font-bold text-gray-700">
+    <div className="mb-6 flex items-start justify-between px-2 text-left text-lg font-bold text-gray-700">
       <div>
         <p className="mb-1 text-gray-800">
           {school} - {specialization},{' '}

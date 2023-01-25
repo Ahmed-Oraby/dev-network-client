@@ -5,11 +5,13 @@ import Alert from './common/Alert';
 import Button from './common/Button';
 import Post from './Post';
 import PostSkeleton from './common/PostSkeleton';
+import Loader from './common/Loader';
 
 export default function Dashboard() {
   const [posts, setPosts] = useState(Array(10).fill(null));
   const [isEmpty, setIsEmpty] = useState(false);
   const [pageNum, setPageNum] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const { exp } = getTokenData();
@@ -27,6 +29,7 @@ export default function Dashboard() {
   const fetchPosts = async () => {
     const pageSize = 5;
     const newPosts = await getPosts(pageSize, pageNum);
+    setIsLoading(false);
 
     if (newPosts.length === 0) {
       setIsEmpty(true);
@@ -53,7 +56,8 @@ export default function Dashboard() {
     setPosts(newPosts);
   };
 
-  const handleLoadMore = async () => {
+  const handleLoadMore = () => {
+    setIsLoading(true);
     if (posts.length === 0) {
       setPageNum(1);
     } else {
@@ -94,11 +98,17 @@ export default function Dashboard() {
         {isEmpty && posts[0] && (
           <Alert text="There are no more posts." variant="primary" />
         )}
+        {isLoading && (
+          <div className="mt-4">
+            <Loader />
+          </div>
+        )}
         {!isEmpty && (
           <Button
             type="button"
             text="Load More"
             variant="secondary"
+            disabled={isLoading}
             onClick={handleLoadMore}
           />
         )}

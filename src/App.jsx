@@ -13,8 +13,19 @@ import UpdateProfile from './components/UpdateProfile';
 import Developers from './components/Developers';
 import NewExperience from './components/NewExperience';
 import NewEducation from './components/NewEducation';
+import { useEffect } from 'react';
+import { httpGet } from './services/httpService';
 
 function App() {
+  useEffect(() => {
+    //send dummy request to wake up server
+    dummyRequest();
+  }, []);
+
+  async function dummyRequest() {
+    await httpGet('/');
+  }
+
   return (
     <>
       <NavBar />
