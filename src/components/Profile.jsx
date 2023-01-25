@@ -8,6 +8,7 @@ import ProfileInfo from './ProfileInfo';
 
 export default function Profile() {
   const [isLoading, setIsLoading] = useState(true);
+  const [userInfo, setUserInfo] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
 
   const location = useLocation();
@@ -22,10 +23,12 @@ export default function Profile() {
 
   async function getProfile() {
     try {
-      const profile = await getUserProfile(userId);
+      const { profile, user } = await getUserProfile(userId);
+      setUserInfo(user);
       setUserProfile(profile);
     } catch (error) {
       if (error.status === 400 || error.status === 404) {
+        setUserInfo(null);
         setUserProfile(null);
       }
     }
@@ -50,9 +53,20 @@ export default function Profile() {
     setUserProfile(newUserProfile);
   };
 
+  if (isLoading) return <ProfileSkeleton />;
+
   return (
     <div className="mb-10 p-2 text-center">
-      {isLoading && <ProfileSkeleton />}
+      {!userProfile && userInfo && (
+        <div className="my-6 flex flex-col items-center justify-center border-b-2 border-b-gray-200 pb-3 text-center font-bold text-gray-700">
+          <img
+            className="h-40 w-40 rounded-full"
+            src={userInfo.avatar}
+            alt=""
+          />
+          <p className="mt-2 text-4xl">{userInfo.name}</p>
+        </div>
+      )}
 
       {userProfile ? (
         <ProfileInfo

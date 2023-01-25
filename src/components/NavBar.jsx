@@ -47,7 +47,7 @@ export default function NavBar() {
               to={`/profile/${tokenData.user.id}`}
               state={{ update: true }}
             >
-              My Profile
+              My&nbsp;Profile
             </NavItem>
             <NavItem to="/logout">Logout</NavItem>
           </>

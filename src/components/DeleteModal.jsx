@@ -38,12 +38,14 @@ export default function DeleteModal({ onCloseDelete, onPostDelete }) {
             type="button"
             text="Yes"
             variant="secondary"
+            disabled={isLoading}
           />
           <Button
             onClick={onCloseDelete}
             type="button"
             text="No"
             variant="secondary"
+            disabled={isLoading}
           />
         </div>
       </div>

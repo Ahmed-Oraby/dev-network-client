@@ -54,8 +54,14 @@ export default function Comment({ comment, postId, onPostUpdate }) {
         <p className="ml-2 flex-grow text-base text-blue-900 sm:ml-4">
           {comment.text}
         </p>
+      </div>
+
+      <div className="mt-2 flex items-center justify-between">
+        <p className="m-1 pt-1 text-sm text-gray-500">
+          {formatDate(comment.date)}
+        </p>
         {token.user.id === comment.user._id && (
-          <div className="ml-2 flex h-14 min-w-fit flex-col items-center justify-between sm:ml-4">
+          <div className="m-1 flex w-14 items-center justify-between">
             <img
               onClick={() => setShowEdit(true)}
               className="h-5 w-5 cursor-pointer"
@@ -71,9 +77,6 @@ export default function Comment({ comment, postId, onPostUpdate }) {
           </div>
         )}
       </div>
-      <p className="m-1 pt-1 text-right text-sm text-gray-500">
-        {formatDate(comment.date)}
-      </p>
 
       {showEdit && (
         <EditModal

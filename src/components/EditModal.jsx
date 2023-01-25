@@ -44,12 +44,14 @@ export default function EditModal({ text, onCloseEdit, onSaveEdit }) {
             type="button"
             text="Save"
             variant="secondary"
+            disabled={isLoading}
           />
           <Button
             onClick={onCloseEdit}
             type="button"
             text="Cancel"
             variant="secondary"
+            disabled={isLoading}
           />
         </div>
       </div>
