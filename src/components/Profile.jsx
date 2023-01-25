@@ -22,6 +22,7 @@ export default function Profile() {
   const token = getTokenData();
 
   async function getProfile() {
+    setIsLoading(true);
     try {
       const { profile, user } = await getUserProfile(userId);
       setUserInfo(user);
