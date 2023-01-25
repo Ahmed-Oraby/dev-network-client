@@ -55,7 +55,7 @@ export default function Comment({ comment, postId, onPostUpdate }) {
           {comment.text}
         </p>
         {token.user.id === comment.user._id && (
-          <div className="flex h-14 flex-col items-center justify-between">
+          <div className="ml-2 flex h-14 min-w-fit flex-col items-center justify-between sm:ml-4">
             <img
               onClick={() => setShowEdit(true)}
               className="h-5 w-5 cursor-pointer"
