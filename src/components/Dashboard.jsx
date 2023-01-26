@@ -9,7 +9,7 @@ import Loader from './common/Loader';
 
 export default function Dashboard() {
   const [posts, setPosts] = useState(Array(10).fill(null));
-  const [isEmpty, setIsEmpty] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(true);
   const [pageNum, setPageNum] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -79,7 +79,7 @@ export default function Dashboard() {
         />
       </div>
 
-      <div className="mt-5 flex min-w-fit flex-col items-center justify-center p-5">
+      <div className="mt-5 flex min-w-fit flex-col items-center justify-center p-2">
         {posts.map((post, index) =>
           post ? (
             <Post

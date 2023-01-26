@@ -29,7 +29,7 @@ function App() {
   return (
     <>
       <NavBar />
-      <div className="min-h-screen p-3">
+      <div className="min-h-screen p-2">
         <Routes>
           <Route
             path="/newexperience"

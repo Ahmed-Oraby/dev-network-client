@@ -38,10 +38,10 @@ export default function AddComment({ postId, onPostUpdate }) {
     <>
       <div
         onKeyDown={handleKeyDown}
-        className="my-4 flex items-center justify-between px-2"
+        className="my-4 mx-auto flex max-w-md items-center justify-between"
       >
         <img
-          className="mr-2 mb-2 h-10 w-10 rounded-full"
+          className="mr-1 mb-2 h-8 w-8 rounded-full"
           src={token.user.avatar}
           alt=""
         />
@@ -52,7 +52,7 @@ export default function AddComment({ postId, onPostUpdate }) {
           placeholder="Add a comment..."
         />
         <img
-          className="ml-2 mb-2 h-8 w-8 cursor-pointer"
+          className="ml-1 mb-2 h-8 w-8 cursor-pointer"
           src={sendIcon}
           alt=""
           onClick={handleAddComment}

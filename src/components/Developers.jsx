@@ -8,7 +8,7 @@ import Loader from './common/Loader';
 
 export default function Developers() {
   const [profiles, setProfiles] = useState(Array(10).fill(null));
-  const [isEmpty, setIsEmpty] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(true);
   const [pageNum, setPageNum] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
